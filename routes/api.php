@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('categorias','categoriaController');
+Route::post('userRegister',['as'=>'user.register','uses'=>'userapiController@registrar']);
+Route::post('guardarReclamo',['as'=>'reclamo.store','uses'=>'reclamoController@guardar']);

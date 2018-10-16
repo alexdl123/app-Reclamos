@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Reclamos</title>
+  <title>ALCALDIA MUNICIPAL</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -53,9 +53,9 @@ body h2, body strong, body td,body h3{
   <!-- Logo -->
   <a href="#" class="logo"  >
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>B</b></span>
+    <span class="logo-mini"><b>A</b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>BANCO </b></span>
+    <span class="logo-lg"><b>ALCALDIA </b></span>
   </a>
   
  <!-- Header Navbar: style can be found in header.less -->
@@ -149,7 +149,7 @@ body h2, body strong, body td,body h3{
        
         <li class="active treeview menu-open">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Servicios</span>
+            <i class="fa fa-dashboard"></i> <span>Administracion</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -165,13 +165,13 @@ body h2, body strong, body td,body h3{
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-fw fa-lock"></i> <span>Principal</span>
+            <i class="fa fa-fw fa-lock"></i> <span>Reclamos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i>Entidad</a></li>
+            <li><a href="{{  route('reclamo.index')}}"><i class="fa fa-circle-o"></i>Ver Mapa</a></li>
           </ul>
            
         </li>
@@ -310,10 +310,7 @@ https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js-->
 
 
         $('#example').DataTable( {
-        responsive:true,
-       
-          
-           
+        responsive:true,           
 
         } );
         $('#example1').DataTable( {

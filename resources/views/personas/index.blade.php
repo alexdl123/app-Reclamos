@@ -40,8 +40,8 @@
         <tfoot>
         </tfoot>
         <tbody>
-            {{ $nro=1 }}
-            @foreach($personas as $key => $row )
+            <?php  $nro=1 ?>
+            @foreach($personas as $key => $row)
 
             <tr>
                 <td>{{ $nro }}</td>
@@ -62,7 +62,7 @@
     
                 </td>
             </tr>
-            {{ $nro++ }}
+            <?php $nro++ ?>
             @endforeach
             
         </tbody>

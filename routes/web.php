@@ -22,6 +22,7 @@ Route::resource('persona','personaController');
 Route::resource('municipio','municipioController');
 Route::resource('distrito','distritoController');
 Route::resource('uv','uvController');
+Route::resource('reclamo','reclamoController');
 //Route::put('municipio/{id}',['as'=>'municipio.eliminar','uses'=>'municipioController@eliminar']);
 
 

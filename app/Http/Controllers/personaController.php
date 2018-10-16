@@ -18,7 +18,7 @@ class personaController extends Controller
     public function index()
     {
         //$users = App\User::where('active', 1)->get();
-        $personas = Persona::where('estado','1')->get();
+        $personas = Persona::where('estado','1')->paginate(10);
         return view('personas.index',compact('personas'));
     }
 
@@ -54,14 +54,14 @@ class personaController extends Controller
         //Creando la cuenta de usuario para la persona (operador)
         //obteniendo el id la ultima persona registrada
         $persona = Persona::All();
-        $persona_id = $persona->last();
+        $persona1 = $persona->last();
 
         $user = new User();
 
         $user->name = $request->nombre;
         $user->email = $request->email;
         $user->password = Hash::make($request->ci);
-        $user->persona_id = $request->persona_id;
+        $user->persona_id = $persona1->id;
         $user->save();
 
         return redirect()->route('persona.index');
