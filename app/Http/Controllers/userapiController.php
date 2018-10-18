@@ -11,9 +11,7 @@ class userapiController extends Controller
 {
     
     public function registrar(Request $request){
-
     	try {
-    		
 	    	$nombre = $request->input('nombre');
 	    	$apellido = $request->input('apellido');
 	    	$ci = $request->input('ci');

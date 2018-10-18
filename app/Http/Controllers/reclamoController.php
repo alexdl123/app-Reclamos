@@ -91,26 +91,25 @@ class reclamoController extends Controller
         
         try {
             
-            $titulo = $request->input('Titulo');
-            $descripcion = $request->input('Descripcion');
-            $zona = $request->input('Zona');
-            $barrio = $request->input('Barrio');
-            $calle=$request->input('Calle');
-            $latitud = $request->input('Latitud');
-            $longitud = $request->input('Longitud');
-            $estado = $request->input('Estado');
-            $categoria_id = $request->input('Categoria');
-            //$user_id = $request->input('user_id');
+            $titulo = $request->input('titulo');
+            $descripcion = $request->input('descripcion');
+            $calle=$request->input('calle');
+            $zona = $request->input('zona');
+            $barrio = $request->input('barrio');
+            $latitud = $request->input('latitud');
+            $longitud = $request->input('longitud');
+            $estado = $request->input('estado');
+            $categoria_id=$request->input('id_categoria');
             $user_id = 1;
             //$uv_id = $request->input('uv_id');
             $uv_id = 1;
-            $ruta = $request->input('ruta');
             
             $reclamo = new Reclamo();
             $reclamo->titulo = $titulo;
             $reclamo->descripcion = $descripcion;
             $reclamo->zona = $zona;
             $reclamo->barrio = $barrio;
+            $reclamo->calle=$calle;
             $reclamo->latitud = $latitud;
             $reclamo->longitud = $longitud;
             $reclamo->estado = $estado;
@@ -124,7 +123,7 @@ class reclamoController extends Controller
 
             $id = $reclamo1->id;
             $imagen = new Imagen();
-            $imagen->ruta = $ruta;
+            $imagen->ruta = $request->input('imagen');
             $imagen->reclamo_id = $reclamo1->id;
             $imagen->save();
 
