@@ -15,7 +15,7 @@ class userapiController extends Controller
 	    	$nombre = $request->input('nombre');
 	    	$apellido = $request->input('apellido');
 	    	$email = $request->input('email');
-	    	$estado = "1";
+	    	$estado = "1"; // estado activo
 
 	    	$persona = new Persona();
 	    	$persona->nombre = $nombre;
