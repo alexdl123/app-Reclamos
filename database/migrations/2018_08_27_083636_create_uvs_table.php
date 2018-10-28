@@ -21,7 +21,7 @@ class CreateUvsTable extends Migration
             $table->string('descripcion',50);
             $table->char('estado',1);
 
-            $table->foreign('distrito_id')->references('id')->on('distritos')->delete('cascade');
+            //$table->foreign('distrito_id')->references('id')->on('distritos')->delete('cascade');
             $table->timestamps();
         });
     }

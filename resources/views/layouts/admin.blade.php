@@ -159,6 +159,7 @@ body h2, body strong, body td,body h3{
             <li><a href="{{ route('municipio.index') }}"><i class="fa fa-circle-o"></i> Municipios </a></li>
             <li><a href="{{ route('distrito.index') }}"><i class="fa fa-circle-o"></i> Distritos </a></li>
             <li><a href="{{ route('uv.index') }}"><i class="fa fa-circle-o"></i> UVs </a></li>
+            <li><a href="{{ route('categoria.index') }}"><i class="fa fa-circle-o"></i> Categorias de Reclamos </a></li>
 
           </ul>
         </li>

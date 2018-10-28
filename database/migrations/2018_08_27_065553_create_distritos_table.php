@@ -28,7 +28,7 @@ class CreateDistritosTable extends Migration
             $table->string('oeste',30);
             $table->char('estado',1);
             
-            $table->foreign('municipio_id')->references('id')->on('municipios')->delete('cascade');
+           // $table->foreign('municipio_id')->references('id')->on('municipios')->delete('cascade');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Categoria;
 
@@ -14,17 +15,10 @@ class categoriaController extends Controller
      */
     public function index()
     {
-        try {
+        
+        $categorias = Categoria::All();
 
-            $categorias = Categoria::All();
-            return response()->json(['resp'=>'SI','categorias'=>$categorias]);   
-
-        } catch (Exception $e) {
-
-            return response()->json(['resp'=>'NO']);   
-            
-        }
-
+        return view('categorias.index',compact('categorias'));
     }
 
     /**
@@ -34,7 +28,7 @@ class categoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorias.create');
     }
 
     /**
@@ -45,7 +39,22 @@ class categoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nombre = $request->input('nombre');
+        $imagen = $request->file('imagen');
+        $descripcion = $request->input('descripcion');
+
+        $ruta = "-";
+        if($imagen){
+            $ruta = $imagen->store('public');    
+            $ruta = str_replace('public','storage',$ruta);
+        }
+        $categoria = new Categoria();
+        $categoria->nombre = $nombre;
+        $categoria->imagen = $ruta;
+        $categoria->descripcion = $descripcion;
+        $categoria->save();
+
+        return redirect()->route('categoria.index');
     }
 
     /**
@@ -67,7 +76,8 @@ class categoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        return view('categorias.edit',compact('categoria'));
     }
 
     /**
@@ -79,7 +89,32 @@ class categoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $nombre = $request->input('nombre');
+        $imagen = $request->file('imagen');
+        $descripcion = $request->input('descripcion');
+
+        $ruta = "-";
+        if($imagen){
+            $ruta = $imagen->store('public');    
+            $ruta = str_replace('public','storage',$ruta);
+        }
+
+        $categoria = Categoria::findOrFail($id);
+
+        if($ruta!=="-"){
+            $img = str_replace("storage/", "public/", $categoria->imagen);
+            $img = "storage/".$img;
+            Storage::delete(asset('/storage/9yBlOG6KxNwaRoIrAKNpbBRr16q5PQyohbflIDcp.png'));
+        }else{
+            $ruta = $categoria->imagen;
+        }
+
+        $categoria->nombre = $nombre;
+        $categoria->descripcion = $descripcion;
+        $categoria->imagen = $ruta;
+        $categoria->update();
+
+        return redirect()->route('categoria.index');
     }
 
     /**
@@ -91,5 +126,20 @@ class categoriaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //SERVICIOS PARA APP MOBIL
+
+    public function getCategorias(){
+        try {
+
+            $categorias = Categoria::All();
+            return response()->json(['resp'=>'SI','categorias'=>$categorias]);   
+
+        } catch (Exception $e) {
+
+            return response()->json(['resp'=>'NO']);   
+            
+        }
     }
 }

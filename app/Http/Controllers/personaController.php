@@ -18,7 +18,7 @@ class personaController extends Controller
     public function index()
     {
         //$users = App\User::where('active', 1)->get();
-        $personas = Persona::where('estado','1')->paginate(10);
+        $personas = Persona::where(['estado'=>'1','tipo'=>'W'])->paginate(10);
         return view('personas.index',compact('personas'));
     }
 
@@ -42,12 +42,13 @@ class personaController extends Controller
     {
         $persona = new Persona();
 
-        $persona->nombre = $request->nombre;
-        $persona->apellido = $request->apellido;
-        $persona->email = $request->email;
-        $persona->ci = $request->ci;
-        $persona->fecha_nac = $request->fecha_nac;
-        $persona->direccion = $request->direccion;
+        $persona->nombre = $request->input('nombre');
+        $persona->apellido = $request->input('apellido');
+        $persona->email = $request->input('email');
+        $persona->ci = $request->input('ci');
+        $persona->fecha_nac = $request->input('fecha_nac');
+        $persona->direccion = $request->input('direccion');
+        $persona->tipo = "W";
         $persona->estado = '1';
 
         $persona->save();
@@ -58,8 +59,8 @@ class personaController extends Controller
 
         $user = new User();
 
-        $user->name = $request->nombre;
-        $user->email = $request->email;
+        $user->name = $request->input('nombre');
+        $user->email = $request->input('email');
         $user->password = Hash::make($request->ci);
         $user->persona_id = $persona1->id;
         $user->save();
@@ -101,12 +102,12 @@ class personaController extends Controller
     {
         $persona = Persona::findOrFail($id);
 
-        $persona->nombre = $request->nombre;
-        $persona->apellido = $request->apellido;
-        $persona->direccion = $request->direccion;
-        $persona->fecha_nac = $request->fecha_nac;
+        $persona->nombre = $request->input('nombre');
+        $persona->apellido = $request->input('apellido');
+        $persona->direccion = $request->input('direccion');
+        $persona->fecha_nac = $request->input('fecha_nac');
 
-        $persona->save();
+        $persona->update();
 
         return redirect()->route('persona.index');
     }
@@ -123,7 +124,10 @@ class personaController extends Controller
         $persona = Persona::findOrFail($id);
         $persona->delete();
         */
-        DB::table('personas')->where('id',$id)->update(['estado'=>'0']);
+        $persona = Persona::findOrFail($id);
+        $persona->estado = '0';
+        $persona->update();
+        //DB::table('personas')->where('id',$id)->update(['estado'=>'0']);
 
         return redirect()->route('persona.index');
     }

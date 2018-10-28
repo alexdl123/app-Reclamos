@@ -97,7 +97,7 @@ class uvController extends Controller
         $uv->extension = $request->extension;
         $uv->descripcion = $request->descripcion;
 
-        $uv->save();
+        $uv->update();
 
         return redirect()->route('uv.index');
     }
@@ -110,7 +110,10 @@ class uvController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('uvs')->where('id',$id)->update(['estado'=>'0']);
+        $uv = Uv::findOrFail($id);
+        $uv->estado = '0';
+        $uv->update();
+        //DB::table('uvs')->where('id',$id)->update(['estado'=>'0']);
 
         return redirect()->route('uv.index');
     }

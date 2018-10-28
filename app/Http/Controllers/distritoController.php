@@ -108,7 +108,7 @@ class distritoController extends Controller
         $distrito->este = $request->este;
         $distrito->oeste = $request->oeste;
 
-        $distrito->save();
+        $distrito->update();
 
         return redirect()->route('distrito.index');
     }
@@ -121,7 +121,10 @@ class distritoController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('distritos')->where('id',$id)->update(['estado'=>'0']);
+        $distrito = Distrito::findOrFail($id);
+        $distrito->estado = '0';
+        $distrito->update();
+        //DB::table('distritos')->where('id',$id)->update(['estado'=>'0']);
 
         return redirect()->route('distrito.index');
     }

@@ -17,11 +17,12 @@ class CreatePersonasTable extends Migration
             $table->increments('id');
             $table->string('nombre',30);
             $table->string('apellido',50);
-            $table->string('ci',30);
-            $table->string('email')->unique();
-            $table->date('fecha_nac');
-            $table->string('direccion',100);
+            $table->string('ci',30)->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->date('fecha_nac')->nullable();
+            $table->string('direccion',100)->nullable();
             $table->char('estado',1);
+            $table->string('tipo');
             $table->timestamps();
         });
     }

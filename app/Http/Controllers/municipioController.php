@@ -96,7 +96,7 @@ class municipioController extends Controller
         $municipio->este = $request->este;
         $municipio->oeste = $request->oeste;
 
-        $municipio->save();
+        $municipio->update();
 
         return redirect()->route('municipio.index');
     }
@@ -113,7 +113,10 @@ class municipioController extends Controller
         $municipio = Municipio::findOrFail($id);
         $municipio->delete();
         */
-        DB::table('municipios')->where('id',$id)->update(['estado'=>'0']);
+        $municipio = Municipio::findOrFail($id);
+        $municipio->estado = '0';
+        $municipio->update();
+        //DB::table('municipios')->where('id',$id)->update(['estado'=>'0']);
 
         return redirect()->route('municipio.index');
     }
