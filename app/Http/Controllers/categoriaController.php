@@ -126,7 +126,11 @@ class categoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        $categoria->delete();
+
+        return redirect()->route('categoria.index');
     }
 
     //SERVICIOS PARA APP MOBIL
