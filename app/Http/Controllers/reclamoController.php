@@ -108,7 +108,6 @@ class reclamoController extends Controller
         try {
 
             $reclamos = Reclamo::where(['estado'=>'1','user_id'=>$id])->get();
-            //$uvs = Uv::All();
             $reclamos2 = array();
             $index = 0;
             foreach ($reclamos as $key => $row) {

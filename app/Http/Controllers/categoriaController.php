@@ -39,7 +39,7 @@ class categoriaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($imagen);
+        
         $nombre = $request->input('nombre');
         $imagen = $request->file('imagen');
         $descripcion = $request->input('descripcion');
@@ -139,8 +139,13 @@ class categoriaController extends Controller
         try {
 
             $categoria = Categoria::where('id',1)->get();
-            $img = asset('storage/app/public/AE9cuWsWkCKiD4xUIrHwIUgyvLz3EVxEnl2qKkPi.jpeg');
-            return response()->json(['resp'=>'SI','categorias'=>$categoria,'datos'=>$img]);   
+            //$url = Storage::url('AE9cuWsWkCKiD4xUIrHwIUgyvLz3EVxEnl2qKkPi.jpeg');
+            $url = asset('AE9cuWsWkCKiD4xUIrHwIUgyvLz3EVxEnl2qKkPi.jpeg');
+            $url = str_replace('public/', 'storage/app/public/', $url);
+            $img = Storage::disk('local')->get($url);
+           
+            
+            return response()->json(['resp'=>'SI','categorias'=>$categoria,'datos'=>$url]);   
 
         } catch (Exception $e) {
 
