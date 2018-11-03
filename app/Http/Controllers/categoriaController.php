@@ -39,6 +39,7 @@ class categoriaController extends Controller
      */
     public function store(Request $request)
     {
+        dd($imagen);
         $nombre = $request->input('nombre');
         $imagen = $request->file('imagen');
         $descripcion = $request->input('descripcion');
@@ -133,13 +134,15 @@ class categoriaController extends Controller
     public function getCategorias(){
         try {
 
-            $categorias = Categoria::All();
-            return response()->json(['resp'=>'SI','categorias'=>$categorias]);   
+            $categoria = Categoria::where('id',1)->get();
+            $img = asset('storage/app/public/AE9cuWsWkCKiD4xUIrHwIUgyvLz3EVxEnl2qKkPi.jpeg');
+            return response()->json(['resp'=>'SI','categorias'=>$categoria,'datos'=>$img]);   
 
         } catch (Exception $e) {
 
             return response()->json(['resp'=>'NO']);   
             
         }
+
     }
 }

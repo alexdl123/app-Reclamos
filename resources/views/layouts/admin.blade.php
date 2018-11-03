@@ -6,6 +6,8 @@
   <title>ALCALDIA MUNICIPAL</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
   <link rel="stylesheet" herf="https://cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
@@ -45,6 +47,10 @@
 body h2, body strong, body td,body h3{
   font-family:"Times New Roman", Times, serif;
 }
+#map {
+        height: 110vh;
+        width: 175vh;
+      }
 
 </style>
 <body class="hold-transition skin-blue sidebar-mini" >
@@ -111,14 +117,7 @@ body h2, body strong, body td,body h3{
                 </div>
               </li>
             </ul>
-
-
-                          
-
-
-
-
-          
+  
         </li>
         <!-- Control Sidebar Toggle Button -->
       <!--  <li>
@@ -173,6 +172,7 @@ body h2, body strong, body td,body h3{
           </a>
           <ul class="treeview-menu">
             <li><a href="{{  route('reclamo.index')}}"><i class="fa fa-circle-o"></i>Ver Mapa</a></li>
+            <li><a href="{{  route('reclamo.estadistico')}}"><i class="fa fa-circle-o"></i>Cuadros Estadisticos</a></li>
           </ul>
            
         </li>
@@ -238,7 +238,7 @@ body h2, body strong, body td,body h3{
  </div>
 
 <!-- ./wrapper -->
-
+@yield('javascript')
 
  <!-- jQuery 2.2.3 -->
 <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
@@ -275,9 +275,6 @@ body h2, body strong, body td,body h3{
 <script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
 
 <!-- iCheck 1.0.1 -->
-<!-- FastClick -->
-<script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
-<!-- jQuery UI 1.11.4 -->
 <!-- AdminLTE App -->
 
 
