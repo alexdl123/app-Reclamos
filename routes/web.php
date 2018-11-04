@@ -29,6 +29,8 @@ Route::get('getUvs',['as'=>'getUvs','uses'=>'uvController@getUvs']);
 
 Route::get('estadistico',['as'=>'reclamo.estadistico','uses'=>'reclamoController@index2']);
 
+Route::get('getReclamosApi',['as'=>'reclamo.get','uses'=>'reclamoController@getCantidadReclamos']);
+
 
 //Route::put('municipio/{id}',['as'=>'municipio.eliminar','uses'=>'municipioController@eliminar']);
 

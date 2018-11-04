@@ -6,7 +6,7 @@
 	  <div class="row">
 	  	<div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">Donut Chart</h3>
+              <h3 class="box-title">Reclamos</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -28,19 +28,19 @@
   $(function () {
     "use strict";
 
-   
-    //DONUT CHART
-    var donut = new Morris.Donut({
-      element: 'sales-chart',
-      resize: true,
-      colors: ["#3c8dbc", "#f56954", "#00a65a"],
-      data: [
-        {label: "Download Sales", value: 40},
-        {label: "In-Store Sales", value: 30},
-        {label: "Mail-Order Sales", value: 20}
-      ],
-      hideHover: 'auto'
-    });
+	$.get("getReclamosApi",function(datos,status){
+
+		console.log(datos);
+		//DONUT CHART
+	    var donut = new Morris.Donut({
+	      element: 'sales-chart',
+	      resize: true,
+	      colors: ["#3c8dbc", "#f56954", "#00a65a","green","#ADFF2F","#FFD700","#87CEFA","#F5FFFA"],
+	      data: datos.reclamos,
+	      hideHover: 'auto'
+	    });
+	});
+    
    
   });
 </script>
