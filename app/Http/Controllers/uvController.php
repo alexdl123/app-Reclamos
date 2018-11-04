@@ -14,6 +14,14 @@ class uvController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getUvs(){
+
+        $uvs = Uv::All();
+        return $uvs;
+        
+    }
+
     public function index()
     {
         $uvs = Uv::where('estado','1')->get();

@@ -22,3 +22,4 @@ Route::get('reclamos',['as'=>'reclamo.get','uses'=>'reclamoController@getReclamo
 Route::get('categorias',['as'=>'categoria.get','uses'=>'categoriaController@getCategorias']);
 Route::post('userRegister',['as'=>'user.register','uses'=>'userapiController@registrar']);
 Route::post('guardarReclamo',['as'=>'reclamo.store','uses'=>'reclamoController@guardar']);
+Route::get('obtenerReclamos/{id}',['as'=>'obtenerReclamos','uses'=>'reclamoController@obtenerReclamos']);

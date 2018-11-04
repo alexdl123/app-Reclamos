@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Reclamo;
 use App\Imagen;
+use App\Distrito;
+use App\Municipio;
+use App\Categoria;
+use App\Uv;
+use DB;
 
 class reclamoController extends Controller
 {
@@ -13,9 +18,23 @@ class reclamoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //para el uso de AJAX
+    public function getReclamos(){
+
+        $reclamos = Reclamo::All();
+        return $reclamos;
+    }
+
+    //Muestra el Mapa
     public function index()
     {
         return view('reclamos.mapa_reclamos');
+    }
+
+    //Para los cuadros estadisticos
+    public function index2(){
+
+        return view('reclamos.estadistico_reclamos');
     }
 
     /**
@@ -81,10 +100,53 @@ class reclamoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 
     //SERVICIOS PARA LA APP MOVIL
+
+
+    public function obtenerReclamos($id){
+        try {
+
+            $reclamos = Reclamo::where(['estado'=>'1','user_id'=>$id])->get();
+            $reclamos2 = array();
+            $index = 0;
+            foreach ($reclamos as $key => $row) {
+
+                $uv = Uv::findOrFail($row->uv_id);
+                $distrito = Distrito::findOrFail($uv->distrito_id);
+                $municipio = Municipio::findOrFail($distrito->municipio_id);
+                $categoria = Categoria::findOrFail($row->categoria_id);
+                $imagenes = Imagen::where('reclamo_id',$row->id)->get();
+                $auxiliar = array('titulo' => $row->titulo,
+                                  'descripcion' => $row->descripcion,
+                                  'zona' => $row->zona,
+                                  'barrio' => $row->barrio,
+                                  'calle' => $row->calle,
+                                  'latitud' => $row->latitud,
+                                  'longitud' => $row->longitud,
+                                  'estado' => $row->estado,
+                                  'categoria' => $categoria->nombre,
+                                  'uv' => $uv->nombre,
+                                  'distrito' => $distrito->nombre,
+                                  'municipio' => $municipio->nombre,
+                                  'imagenes' => $imagenes                                   
+                 );
+                $reclamos2[$index] = $auxiliar;
+                $index++;
+            }
+
+            return response()->json(['resp'=>'SI','reclamos'=>$reclamos2]);
+
+        } catch (Exception $e) {
+
+            return response()->json(['resp'=>'NO','Error'=>$e]);
+
+        }
+
+        
+    }
 
     public function guardar(Request $request){
 
@@ -143,5 +205,35 @@ class reclamoController extends Controller
         } catch(Exception $e){
             return response()->json(['resp'=>'NO']);
         }
+    }
+
+    //para la parte de estadistica
+    public function getCantidadReclamos(){
+
+
+        $reclamos = Reclamo::where('estado','1')->get();
+        $total = $reclamos->count();
+
+        $reclamos = DB::select("SELECT categoria_id,count(*) as cantidad
+                                FROM reclamos r
+                                WHERE estado = '1'
+                                GROUP BY categoria_id"
+                                );
+
+        $datos = array();
+        $index = 0;
+        foreach ($reclamos as $key => $row) {
+            
+            $porcentaje = ($row->cantidad *100) / $total;
+            $porcentaje2 = number_format($porcentaje,2); //le indico cuantos decimales voy a usar
+            $categoria = Categoria::findOrFail($row->categoria_id);
+            $auxiliar = array(
+                            'label' => $categoria->nombre,
+                            'value' => $porcentaje2                            );  
+            $datos[$index] = $auxiliar;
+            $index++;
+        }
+
+        return response()->json(['reclamos' => $datos]) ;
     }
 }

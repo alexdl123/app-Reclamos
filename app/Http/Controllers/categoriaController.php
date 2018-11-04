@@ -38,6 +38,7 @@ class categoriaController extends Controller
      */
     public function store(Request $request)
     {
+        
         $nombre = $request->input('nombre');
         $imagen = $request->file('imagen');
         $descripcion = $request->input('descripcion');
@@ -124,14 +125,17 @@ class categoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        $categoria->delete();
+
+        return redirect()->route('categoria.index');
     }
 
     //SERVICIOS PARA APP MOVIL
 
     public function getCategorias(){
         try {
-            
             $categorias = Categoria::All();
             return response()->json(['resp'=>'SI','categorias'=>$categorias]);   
 
@@ -140,5 +144,6 @@ class categoriaController extends Controller
             return response()->json(['resp'=>'NO']);   
             
         }
+
     }
 }
