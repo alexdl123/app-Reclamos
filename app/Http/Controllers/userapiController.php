@@ -33,5 +33,9 @@ class userapiController extends Controller
     		
     	}
 
-    }
+	}
+	
+	// implementar una funcion para verificar si existe un user en la tabla persona
+	// para no volver a insertarlo
+
 }

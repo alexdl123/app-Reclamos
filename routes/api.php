@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::get('reclamos',['as'=>'reclamo.get','uses'=>'reclamoController@getReclamos']);
 Route::get('categorias',['as'=>'categoria.get','uses'=>'categoriaController@getCategorias']);
 Route::post('userRegister',['as'=>'user.register','uses'=>'userapiController@registrar']);
 Route::post('guardarReclamo',['as'=>'reclamo.store','uses'=>'reclamoController@guardar']);

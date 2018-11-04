@@ -17,7 +17,6 @@ class categoriaController extends Controller
     {
         
         $categorias = Categoria::All();
-
         return view('categorias.index',compact('categorias'));
     }
 
@@ -128,11 +127,11 @@ class categoriaController extends Controller
         //
     }
 
-    //SERVICIOS PARA APP MOBIL
+    //SERVICIOS PARA APP MOVIL
 
     public function getCategorias(){
         try {
-
+            
             $categorias = Categoria::All();
             return response()->json(['resp'=>'SI','categorias'=>$categorias]);   
 

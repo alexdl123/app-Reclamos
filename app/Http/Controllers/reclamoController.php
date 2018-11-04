@@ -132,7 +132,16 @@ class reclamoController extends Controller
             return response()->json(['resp'=>'NO','Error'=>$e]);    
         }
 
+    }
 
-
+    public function getReclamos(){
+        try{
+            $reclamos=Reclamo::All();
+            return response()->json(
+                ['resp'=>'SI',
+                'reclamos'=>$reclamos]);
+        } catch(Exception $e){
+            return response()->json(['resp'=>'NO']);
+        }
     }
 }
